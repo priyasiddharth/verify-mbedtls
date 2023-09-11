@@ -33,7 +33,5 @@ constexpr auto expectations_embed_write_record =
 MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_embed_write_record, int,
               (mbedtls_ssl_context *, int))
 
-// int mbedtls_ssl_flush_output(mbedtls_ssl_context *ssl) { return
-// nd_int(); }
 LAZY_MOCK_FUNCTION(mbedtls_ssl_flush_output, int, (mbedtls_ssl_context *))
 }
