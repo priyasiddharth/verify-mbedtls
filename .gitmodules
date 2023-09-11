@@ -1,3 +1,6 @@
 [submodule "mbedtls"]
 	path = mbedtls
 	url = https://github.com/Mbed-TLS/mbedtls
+[submodule "seamock"]
+	path = seamock
+	url = git@github.com:seahorn/seamock.git

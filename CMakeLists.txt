@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18.4)
 project(verifyTrusty C CXX)
 
-
+set (CMAKE_CXX_STANDARD 17)  # for seamock
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvmir)
 include(LLVMIRUtil)
 include(CTest)
@@ -30,6 +30,7 @@ set(CPPSTDLIB "libc++" CACHE STRING "C++ std library to use")
 
 set(MBEDTLS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mbedtls)
 set(MBEDTLS_MOD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mbedtls_mod)
+set(SEAMOCK_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/seamock/src)
 
 set(SEA_LIB ${CMAKE_CURRENT_SOURCE_DIR}/seahorn/lib)
 
