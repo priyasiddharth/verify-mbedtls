@@ -8,3 +8,4 @@ target_include_directories(ssl_msg_close_notify_harness
 )
 sea_overlink_libraries(ssl_msg_close_notify_harness ssl_msg_close_notify_env.ir)
 sea_attach_bc(ssl_msg_close_notify_harness)
+sea_add_unsat_test(ssl_msg_close_notify_harness)
