@@ -1,6 +1,8 @@
 #ifndef SEAHORN_UTIL_H_
 #define SEAHORN_UTIL_H_
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
