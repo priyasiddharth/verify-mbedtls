@@ -10,6 +10,7 @@ extern "C" {
 #define ND __declspec(noalias)
 
 extern ND void memhavoc(void *ptr, size_t size);
+extern ND void sea_printf(const char *format, ...);
 
 extern int nd_int(void);
 extern size_t nd_size_t(void);
