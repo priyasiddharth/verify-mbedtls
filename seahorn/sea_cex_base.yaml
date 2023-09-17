@@ -31,7 +31,7 @@ verify_options:
 # stack allocation from a symbolic starting point
   horn-explicit-sp0: true
 # lambdas for memory
-  horn-bv2-lambdas: false
+  horn-bv2-lambdas: true
 # use z3 simplifier during vcgen
   horn-bv2-simplify: true
 # wide memory manager to track pointer sizes
