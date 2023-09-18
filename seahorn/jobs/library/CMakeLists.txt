@@ -1,3 +1,4 @@
 add_subdirectory(ssl_msg_close_notify)
 add_subdirectory(ssl_msg_flush_output)
 add_subdirectory(ssl_buffering_free)
+add_subdirectory(ssl_msg_check_record)

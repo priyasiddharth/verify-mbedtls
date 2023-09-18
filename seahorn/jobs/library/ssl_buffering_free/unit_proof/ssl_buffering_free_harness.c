@@ -24,6 +24,7 @@ void test_mbedtls_ssl_buffering_free(void) {
     assume(hs_buf->data_len < MSG_BUF_MAX_SIZE);
     // allocate memory to buffer
     is_buf_valid[slot] = hs_buf->is_valid;
+    // TODO: Change to malloc_can_fail
     hs_buf->data = malloc(hs_buf->data_len);
     memhavoc(hs_buf->data, hs_buf->data_len);
   }
