@@ -3,4 +3,4 @@
 	url = https://github.com/Mbed-TLS/mbedtls
 [submodule "seamock"]
 	path = seamock
-	url = git@github.com:seahorn/seamock.git
+	url = https://github.com/seahorn/seamock.git
