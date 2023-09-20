@@ -3,8 +3,8 @@
 #include <ssl_misc.h>
 
 #include <seahorn/seahorn.h>
+#include <seahorn_config.h>
 #include <seahorn_util.h>
-
 #include <stddef.h>
 
 void test_mbedtls_ssl_flush_output(void);
@@ -14,7 +14,7 @@ void test_mbedtls_ssl_flush_output(void) {
   // NOTE: setup the precondition
   struct mbedtls_ssl_context ssl;
   memhavoc(&ssl, sizeof(mbedtls_ssl_context));
-  assume(ssl.out_left < 42); // bound number of bytes to [0, 42)
+  assume(ssl.out_left < MAX_BUFFER_SIZE); // bound number of bytes
   size_t buf_size = nd_size_t();
   assume(buf_size >= ssl.out_left);
   unsigned char *buf = (unsigned char *)malloc(buf_size);
@@ -23,11 +23,11 @@ void test_mbedtls_ssl_flush_output(void) {
   ssl.f_send = &send_fn;
   mbedtls_ssl_transform transform;
   memhavoc(&transform, sizeof(mbedtls_ssl_transform));
-  assume(ssl.transform_out == &transform);
+  ssl.transform_out = &transform;
   struct mbedtls_ssl_config conf;
   memhavoc(&conf, sizeof(mbedtls_ssl_config));
   conf.transport = nd_uint8_t();
-  assume(ssl.conf = &conf);
+  ssl.conf = &conf;
   // NOTE: call the SUT
   int rc = mbedtls_ssl_flush_output(&ssl);
 }

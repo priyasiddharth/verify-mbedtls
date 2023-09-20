@@ -21,11 +21,16 @@ void test_mbedtls_ssl_buffering_free(void) {
   // initialize buffers
   for (unsigned slot = 0; slot < MBEDTLS_SSL_MAX_BUFFERED_HS; slot++) {
     mbedtls_ssl_hs_buffer *const hs_buf = &handshake.buffering.hs[slot];
-    assume(hs_buf->data_len < MSG_BUF_MAX_SIZE);
+    assume(hs_buf->data_len < GLOBAL_BUF_MAX_SIZE);
+    assume(hs_buf->data_len > 0);
+
     // allocate memory to buffer
     is_buf_valid[slot] = hs_buf->is_valid;
     // TODO: Change to malloc_can_fail
     hs_buf->data = malloc(hs_buf->data_len);
+    if (hs_buf->data != NULL) {
+      sassert(sea_is_dereferenceable(hs_buf->data, hs_buf->data_len));
+    }
     memhavoc(hs_buf->data, hs_buf->data_len);
   }
   // NOTE: call the SUT

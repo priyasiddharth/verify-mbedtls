@@ -1,0 +1,10 @@
+#pragma once
+/* clang-format off */
+#ifndef SEAHORN_CONFIG_H_
+#define SEAHORN_CONFIG_H_
+
+#ifndef MAX_BUFFER_SIZE
+#define MAX_BUFFER_SIZE @MAX_BUFFER_SIZE@
+#endif
+
+#endif // SEAHORN_CONFIG_H_

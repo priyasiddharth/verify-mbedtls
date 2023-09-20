@@ -45,20 +45,7 @@ set(SEAMOCK_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/seamock/src)
 set(SEA_LIB ${CMAKE_CURRENT_SOURCE_DIR}/seahorn/lib)
 
 configure_file(verify.py.in verify @ONLY)
-set(VERIFY_SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/verify-trusty.sh)
 set(VERIFY_CMD ${CMAKE_CURRENT_BINARY_DIR}/verify)
-
-include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR}/include)
-
-include_directories(seahorn/trusty_common/include)
-#TODO : Don't include at global level
-#I don't get why we have two directories trusty_common and trusty
-#and why is trusty included as an implicit dep of trusty_common
-if (HANDLE_TYPE_IS_PTR)
-  include_directories(seahorn/trusty/user/base/lib/libc-trusty-ptr)
-else ()
-  include_directories(seahorn/trusty/user/base/lib/libc-trusty)
-endif ()
-
-include_directories(${SEAHORN_ROOT}/include)
+include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR}/seahorn/include/
+                           ${SEAHORN_ROOT}/include)
 add_subdirectory(seahorn)

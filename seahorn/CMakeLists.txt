@@ -233,13 +233,17 @@ function(sea_add_unsat_test TARGET)
 endfunction()
 
 # Set upper bound on data structures
-set(MSG_BUF_MAX_SIZE 4096)
+set(GLOBAL_BUF_MAX_SIZE 4096)
 
 # Compile-time definitions
 add_definitions(
-  -DMSG_BUF_MAX_SIZE=${MSG_BUF_MAX_SIZE}
+  -DGLOBAL_BUF_MAX_SIZE=${GLOBAL_BUF_MAX_SIZE}
 )
 
+# define limits
+set(MAX_BUFFER_SIZE 10)
+
+configure_file(include/seahorn_config.h.in ${PROJECT_BINARY_DIR}/seahorn/include/seahorn_config.h)
 configure_file(sea.yaml sea.yaml @ONLY)
 configure_file(sea_cex_base.yaml sea.cex.yaml @ONLY)
 configure_file(sea_vac.yaml sea.vac.yaml @ONLY)

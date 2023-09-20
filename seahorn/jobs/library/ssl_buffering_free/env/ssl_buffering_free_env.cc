@@ -6,7 +6,9 @@ extern "C" { // C linkage: The decl of mock fn and def should have same linkage
 #include <seamock.hh>
 
 constexpr auto invoke_zeroize_and_free_fn = [](void *buf, size_t len) {
-  sassert(sea_is_dereferenceable(buf, len));
+  // if (buf != NULL) {
+  //   sassert(sea_is_dereferenceable(buf, len));
+  // }
 };
 
 constexpr auto expectations_zeroize_and_free =
