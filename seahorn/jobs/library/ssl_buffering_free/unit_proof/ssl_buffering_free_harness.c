@@ -22,7 +22,6 @@ void test_mbedtls_ssl_buffering_free(void) {
   for (unsigned slot = 0; slot < MBEDTLS_SSL_MAX_BUFFERED_HS; slot++) {
     mbedtls_ssl_hs_buffer *const hs_buf = &handshake.buffering.hs[slot];
     assume(hs_buf->data_len < GLOBAL_BUF_MAX_SIZE);
-    assume(hs_buf->data_len > 0);
 
     // allocate memory to buffer
     is_buf_valid[slot] = hs_buf->is_valid;
