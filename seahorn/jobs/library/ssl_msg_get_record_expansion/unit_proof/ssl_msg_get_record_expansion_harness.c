@@ -25,7 +25,7 @@ void test_mbedtls_ssl_get_record_expansion(void) {
   memhavoc(&cipher_ctx, sizeof(struct mbedtls_cipher_context_t));
   struct mbedtls_cipher_info_t cipher_info;
   memhavoc(&cipher_info, sizeof(struct mbedtls_cipher_info_t));
-  cipher_ctx.cipher_info = &info_cipher;
+  cipher_ctx.cipher_info = &cipher_info;
   ssl.transform_out->cipher_ctx_enc = cipher_ctx;
   // NOTE: call the SUT
   int rc = mbedtls_ssl_get_record_expansion(&ssl);
