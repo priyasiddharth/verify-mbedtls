@@ -1,0 +1,5 @@
+# The loop exit condition "sassert(ssl->handshake->cur_msg == NULL);" at the end
+# of the loop is not maintained on all executions. This is because in some
+# executions the assignment "ssl->handshake->cur_msg = cur->next" does not
+# happen.
+ssl_msg_flight_transmit_harness_unsat_test
