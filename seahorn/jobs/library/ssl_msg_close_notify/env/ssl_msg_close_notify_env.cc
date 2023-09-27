@@ -26,7 +26,7 @@ constexpr auto capture_map_mbedtls_ssl_write_record = hana::make_map(
 
 extern "C" {
 constexpr auto expectations_mbed_write_record =
-    MakeExpectation(Expect(Times, 1_c) ^ AND ^
+    MakeExpectation(Expect(Times, Lt(2_c)) ^ AND ^
                     Expect(ReturnFn, ret_fn_mbedtls_ssl_write_record) ^ AND ^
                     Expect(Capture, capture_map_mbedtls_ssl_write_record));
 
@@ -34,4 +34,6 @@ MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_mbed_write_record, int,
               (mbedtls_ssl_context *, int))
 
 LAZY_MOCK_FUNCTION(mbedtls_ssl_flush_output, int, (mbedtls_ssl_context *))
+
+SETUP_POST_CHECKS((mbedtls_ssl_write_record))
 }

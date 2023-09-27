@@ -5,8 +5,9 @@ add_library(ssl_msg_finish_handshake_msg_harness STATIC
 target_include_directories(ssl_msg_finish_handshake_msg_harness
   PRIVATE ${MBEDTLS_DIR}/include/
   ${MBEDTLS_DIR}/library/
-  ${PROJECT_SOURCE_DIR}/seahorn/include/)
+  ${PROJECT_SOURCE_DIR}/seahorn/include/
+  ${SEAMOCK_ROOT}/include)
+
 sea_overlink_libraries(ssl_msg_finish_handshake_msg_harness ssl_msg_finish_handshake_msg_env.ir)
 sea_attach_bc(ssl_msg_finish_handshake_msg_harness)
 sea_add_unsat_test(ssl_msg_finish_handshake_msg_harness)
-    

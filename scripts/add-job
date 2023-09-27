@@ -23,7 +23,8 @@ add_library({job}_harness STATIC
 target_include_directories({job}_harness
   PRIVATE ${{MBEDTLS_DIR}}/include/
   ${{MBEDTLS_DIR}}/library/
-  ${{PROJECT_SOURCE_DIR}}/seahorn/include/)
+  ${{PROJECT_SOURCE_DIR}}/seahorn/include/
+  ${{SEAMOCK_ROOT}}/include)
 sea_overlink_libraries({job}_harness {job}_env.ir)
 sea_attach_bc({job}_harness)
 sea_add_unsat_test({job}_harness)

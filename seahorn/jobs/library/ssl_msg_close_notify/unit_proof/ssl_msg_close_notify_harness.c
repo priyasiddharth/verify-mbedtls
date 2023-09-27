@@ -3,12 +3,10 @@
 
 #include <seahorn/seahorn.h>
 #include <seahorn_util.h>
-
+#include <seamock_unit_proof.h>
 #include <stddef.h>
 
-void test_mbedtls_ssl_close_notify(void);
-
-void test_mbedtls_ssl_close_notify(void) {
+DEFINE_UNIT_PROOF(mbedtls_ssl_close_notify) {
   // NOTE: setup the precondition
   struct mbedtls_ssl_context ssl;
   memhavoc(&ssl, sizeof(mbedtls_ssl_context));
@@ -26,6 +24,6 @@ void test_mbedtls_ssl_close_notify(void) {
 }
 
 int main(void) {
-  test_mbedtls_ssl_close_notify();
+  CALL_UNIT_PROOF(mbedtls_ssl_close_notify);
   return 0;
 }

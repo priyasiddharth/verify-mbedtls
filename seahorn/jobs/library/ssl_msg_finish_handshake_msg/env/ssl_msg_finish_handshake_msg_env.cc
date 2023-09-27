@@ -19,9 +19,10 @@ void set_msg_len(size_t len) { msg_len = len; }
 constexpr auto expectations_mbedtls_ssl_write_handshake_msg_ext =
     MakeExpectation(
         Expect(InvokeFn, invoke_fn_mbedtls_ssl_write_handshake_msg_ext) ^ AND ^
-        Expect(Times, 1_c));
+        Expect(Times, Lt(2_c)));
 
 MOCK_FUNCTION(mbedtls_ssl_write_handshake_msg_ext,
               expectations_mbedtls_ssl_write_handshake_msg_ext, int,
               (mbedtls_ssl_context *, int, int))
+SETUP_POST_CHECKS((mbedtls_ssl_write_handshake_msg_ext))
 }

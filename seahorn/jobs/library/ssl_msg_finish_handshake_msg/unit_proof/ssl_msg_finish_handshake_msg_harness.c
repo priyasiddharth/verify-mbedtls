@@ -5,9 +5,10 @@
 #include <seahorn/seahorn.h>
 #include <seahorn_config.h>
 #include <seahorn_util.h>
+#include <seamock_unit_proof.h>
+
 #include <stddef.h>
 
-void test_mbedtls_ssl_finish_handshake_msg(void);
 extern int ssl_recv_fn_timeout(void *ctx, unsigned char *buf, size_t len,
                                uint32_t timeout);
 extern int ssl_recv_fn(void *ctx, unsigned char *buf, size_t len);
@@ -15,7 +16,7 @@ extern int ssl_get_timer(void *ctx);
 extern void set_min_recv_bytes(size_t num_bytes);
 extern void set_msg_len(size_t);
 
-void test_mbedtls_ssl_finish_handshake_msg(void) {
+DEFINE_UNIT_PROOF(mbedtls_ssl_finish_handshake_msg) {
   // NOTE: setup the precondition
   struct mbedtls_ssl_context ssl;
   memhavoc(&ssl, sizeof(mbedtls_ssl_context));
@@ -49,6 +50,6 @@ void test_mbedtls_ssl_finish_handshake_msg(void) {
 }
 
 int main(void) {
-  test_mbedtls_ssl_finish_handshake_msg();
+  CALL_UNIT_PROOF(mbedtls_ssl_finish_handshake_msg);
   return 0;
 }

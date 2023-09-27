@@ -5,7 +5,9 @@ add_library(write_handshake_msg_ext_harness STATIC
 target_include_directories(write_handshake_msg_ext_harness
   PRIVATE ${MBEDTLS_DIR}/include/
   ${MBEDTLS_DIR}/library/
-  ${PROJECT_SOURCE_DIR}/seahorn/include/)
+  ${PROJECT_SOURCE_DIR}/seahorn/include/
+  ${SEAMOCK_ROOT}/include)
+
 sea_overlink_libraries(write_handshake_msg_ext_harness write_handshake_msg_ext_env.ir)
 sea_attach_bc(write_handshake_msg_ext_harness)
 configure_file(sea.yaml sea.yaml @ONLY)
