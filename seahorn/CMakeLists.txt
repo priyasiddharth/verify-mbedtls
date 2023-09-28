@@ -248,4 +248,5 @@ configure_file(sea.yaml sea.yaml @ONLY)
 configure_file(sea_cex_base.yaml sea.cex.yaml @ONLY)
 configure_file(sea_vac.yaml sea.vac.yaml @ONLY)
 
+add_subdirectory(library)
 add_subdirectory(jobs/library)
