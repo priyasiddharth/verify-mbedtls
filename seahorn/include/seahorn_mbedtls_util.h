@@ -12,6 +12,11 @@
   memhavoc(&conf, sizeof(mbedtls_ssl_config));                                 \
   ssl.conf = &conf;
 
+#define HAVOC_ADD_HANDSHAKE_TO_SSL_CTX(ssl)                                    \
+  mbedtls_ssl_handshake_params handshake;                                      \
+  memhavoc(&handshake, sizeof(mbedtls_ssl_handshake_params));                  \
+  ssl.handshake = &handshake;
+
 #define ADD_CONF_TO_SSL_CTX(ssl)                                               \
   struct mbedtls_ssl_config conf;                                              \
   memhavoc(&conf, sizeof(mbedtls_ssl_config));                                 \
