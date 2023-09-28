@@ -54,3 +54,11 @@ void init_incoming_buf(struct mbedtls_ssl_context *ssl) {
   assume(ssl->in_msglen <= in_buf_len);
   assume(in_header_len + in_iv_len + ssl->in_msglen == in_buf_len);
 }
+
+bool outgoing_buf_valid(struct mbedtls_ssl_context *ssl) {
+  return sea_is_dereferenceable(ssl->out_msg, ssl->out_msglen);
+}
+
+bool incoming_buf_valid(struct mbedtls_ssl_context *ssl) {
+  return sea_is_dereferenceable(ssl->in_msg, ssl->in_msglen);
+}

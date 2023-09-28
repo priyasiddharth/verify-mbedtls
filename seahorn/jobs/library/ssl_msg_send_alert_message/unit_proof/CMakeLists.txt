@@ -6,7 +6,6 @@ target_include_directories(ssl_msg_send_alert_message_harness
   PRIVATE ${MBEDTLS_DIR}/include/
   ${MBEDTLS_DIR}/library/
   ${PROJECT_SOURCE_DIR}/seahorn/include/
-  ${PROJECT_SOURCE_DIR}/seahorn/library/
   ${SEAMOCK_ROOT}/include)
 sea_link_libraries(ssl_msg_send_alert_message_harness seahorn_mbedtls_util_lib.ir)
 sea_overlink_libraries(ssl_msg_send_alert_message_harness ssl_msg_send_alert_message_env.ir)
