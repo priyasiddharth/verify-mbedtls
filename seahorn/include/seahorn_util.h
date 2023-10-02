@@ -30,6 +30,7 @@ extern size_t nd_size_t(void);
 extern uint8_t nd_uint8_t(void);
 extern bool nd_bool(void);
 extern char nd_char(void);
+extern unsigned nd_uint32_t(void);
 extern unsigned char nd_uchar(void);
 extern void sea_reset_modified(char *);
 extern bool sea_is_alloc(char *);
