@@ -11,20 +11,22 @@
 
 void init_outgoing_buf(struct mbedtls_ssl_context *ssl) {
   // setup outgoing data
-  size_t out_buf_len = nd_size_t();
+  ND_ALIGNED64_SIZE_T(out_buf_len);
   assume(out_buf_len <= GLOBAL_BUF_MAX_SIZE);
   unsigned char *out_buf = (unsigned char *)malloc(out_buf_len);
   ssl->out_len = (unsigned char *)&out_buf_len;
   // setup out header
-  size_t out_header_start = nd_size_t();
+  ND_ALIGNED64_SIZE_T(out_header_start);
+
   ssl->out_hdr = out_buf + out_header_start;
-  size_t out_header_len = nd_size_t();
+  ND_ALIGNED64_SIZE_T(out_header_len);
   // setup iv
   size_t out_iv_len = nd_size_t();
   ssl->out_iv = out_buf + out_header_len;
   // setup out msg
   ssl->out_msg = out_buf + out_iv_len;
   ssl->out_msglen = nd_size_t();
+  assume(IS_ALIGN64(ssl->out_msglen));
   assume(ssl->out_msglen >= 2);
   assume(out_header_len <= out_buf_len);
   assume(out_iv_len <= out_buf_len);
@@ -34,20 +36,21 @@ void init_outgoing_buf(struct mbedtls_ssl_context *ssl) {
 
 void init_incoming_buf(struct mbedtls_ssl_context *ssl) {
   // setup ingoing data
-  size_t in_buf_len = nd_size_t();
+  ND_ALIGNED64_SIZE_T(in_buf_len);
   assume(in_buf_len <= GLOBAL_BUF_MAX_SIZE);
   unsigned char *in_buf = (unsigned char *)malloc(in_buf_len);
   ssl->in_len = (unsigned char *)&in_buf_len;
   // setup in header
-  size_t in_header_start = nd_size_t();
+  ND_ALIGNED64_SIZE_T(in_header_start);
   ssl->in_hdr = in_buf + in_header_start;
-  size_t in_header_len = nd_size_t();
+  ND_ALIGNED64_SIZE_T(in_header_len);
   // setup iv
-  size_t in_iv_len = nd_size_t();
+  ND_ALIGNED64_SIZE_T(in_iv_len);
   ssl->in_iv = in_buf + in_header_len;
   // setup in msg
   ssl->in_msg = in_buf + in_iv_len;
   ssl->in_msglen = nd_size_t();
+  assume(IS_ALIGN64(ssl->in_msglen));
   assume(ssl->in_msglen >= 2);
   assume(in_header_len <= in_buf_len);
   assume(in_iv_len <= in_buf_len);

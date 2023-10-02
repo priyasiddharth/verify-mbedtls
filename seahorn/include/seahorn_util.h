@@ -7,6 +7,11 @@
 extern "C" {
 #endif
 
+#define IS_ALIGN64(n) ((size_t)n << (sizeof(size_t) * 8 - 3)) == 0
+#define ND_ALIGNED64_SIZE_T(var)                                               \
+  size_t var = nd_size_t();                                                    \
+  assume(IS_ALIGN64(var))
+
 #define ND __declspec(noalias)
 /*
 ** memhaovoc havocs a contiguous number of bytes starting at ptr upto length
