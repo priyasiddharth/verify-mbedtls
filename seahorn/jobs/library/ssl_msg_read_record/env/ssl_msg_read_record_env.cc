@@ -29,10 +29,9 @@ SUC_MOCK_FUNCTION(ssl_consume_current_message, (mbedtls_ssl_context *))
 SUC_MOCK_FUNCTION(ssl_get_next_record, (mbedtls_ssl_context *))
 SUC_MOCK_FUNCTION(ssl_buffer_message, (mbedtls_ssl_context *))
 SUC_MOCK_FUNCTION(mbedtls_ssl_handle_message_type, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(
-    mbedtls_ssl_update_handshake_status,
-    ERR_SUC_MOCK_FUNCTION(ssl_load_buffered_message,
-                          (mbedtls_ssl_context *))(mbedtls_ssl_context *))
+ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_update_handshake_status,
+                      (mbedtls_ssl_context *))
+ERR_SUC_MOCK_FUNCTION(ssl_load_buffered_message, (mbedtls_ssl_context *))
 ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_check_timer, (mbedtls_ssl_context *))
 ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_fetch_input, (mbedtls_ssl_context *, size_t))
 ERR_SUC_MOCK_FUNCTION(ssl_handle_possible_reconnect, (mbedtls_ssl_context *))
