@@ -23,28 +23,18 @@ constexpr auto invoke_ssl_read_record = [](mbedtls_ssl_context *ssl,
 
 extern "C" {
 int get_last_read_record_retval(void) { return last_read_record_retval; }
-ERR_SUC_MOCK_FUNCTION(mbedtls_md_hmac_reset, (mbedtls_md_context_t *))
+
+// to exit do-while loop after 1 iter
+SUC_MOCK_FUNCTION(ssl_consume_current_message, (mbedtls_ssl_context *))
+SUC_MOCK_FUNCTION(ssl_get_next_record, (mbedtls_ssl_context *))
+SUC_MOCK_FUNCTION(ssl_buffer_message, (mbedtls_ssl_context *))
+SUC_MOCK_FUNCTION(mbedtls_ssl_handle_message_type, (mbedtls_ssl_context *))
+ERR_SUC_MOCK_FUNCTION(
+    mbedtls_ssl_update_handshake_status,
+    ERR_SUC_MOCK_FUNCTION(ssl_load_buffered_message,
+                          (mbedtls_ssl_context *))(mbedtls_ssl_context *))
+ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_check_timer, (mbedtls_ssl_context *))
+ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_fetch_input, (mbedtls_ssl_context *, size_t))
+ERR_SUC_MOCK_FUNCTION(ssl_handle_possible_reconnect, (mbedtls_ssl_context *))
 ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_flush_output, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_flight_transmit, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_handshake, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_resend_hello_request, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(ssl_get_timer, (void *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_renegotiate, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_start_renegotiation, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_get_record_expansion,
-                      (const mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_write_record,
-                      (const mbedtls_ssl_context *, int))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_handle_message_type, (mbedtls_ssl_context *))
-ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_update_handshake_status,
-                      (mbedtls_ssl_context *))
-constexpr auto expectations_zero_and_free =
-    MakeExpectation(Expect(InvokeFn, invoke_zero_and_free));
-MOCK_FUNCTION(mbedtls_zeroize_and_free, expectations_zero_and_free, void,
-              (void *, size_t))
-// constexpr auto expectatations_mbedtls_ssl_read_record =
-//     MakeExpectation(Expect(InvokeFn, invoke_ssl_read_record));
-// MOCK_FUNCTION(mbedtls_ssl_read_record,
-// expectatations_mbedtls_ssl_read_record,
-//               int, (mbedtls_ssl_context *, unsigned));
 }

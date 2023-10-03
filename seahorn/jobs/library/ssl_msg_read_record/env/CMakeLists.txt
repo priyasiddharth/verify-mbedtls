@@ -6,4 +6,3 @@ target_include_directories(ssl_msg_read_record_env
   ${PROJECT_SOURCE_DIR}/seahorn/include/
   ${SEAMOCK_ROOT}/include)
 sea_attach_bc_cc(ssl_msg_read_record_env)
-    
