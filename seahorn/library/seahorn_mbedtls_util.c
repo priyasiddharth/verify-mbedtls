@@ -28,10 +28,13 @@ void init_outgoing_buf(struct mbedtls_ssl_context *ssl) {
   ssl->out_msglen = nd_size_t();
   assume(IS_ALIGN64(ssl->out_msglen));
   assume(ssl->out_msglen >= 2);
-  assume(out_header_len <= out_buf_len);
-  assume(out_iv_len <= out_buf_len);
-  assume(ssl->out_msglen <= out_buf_len);
-  assume(out_header_len + out_iv_len + ssl->out_msglen == out_buf_len);
+  assume(out_header_len < out_buf_len);
+  assume(out_header_start < out_buf_len);
+
+  assume(out_iv_len < out_buf_len);
+  assume(ssl->out_msglen < out_buf_len);
+  assume(out_header_start + out_header_len + out_iv_len + ssl->out_msglen ==
+         out_buf_len);
 }
 
 void init_incoming_buf(struct mbedtls_ssl_context *ssl) {
@@ -52,10 +55,13 @@ void init_incoming_buf(struct mbedtls_ssl_context *ssl) {
   ssl->in_msglen = nd_size_t();
   assume(IS_ALIGN64(ssl->in_msglen));
   assume(ssl->in_msglen >= 2);
-  assume(in_header_len <= in_buf_len);
-  assume(in_iv_len <= in_buf_len);
-  assume(ssl->in_msglen <= in_buf_len);
-  assume(in_header_len + in_iv_len + ssl->in_msglen == in_buf_len);
+  assume(in_header_start < in_buf_len);
+
+  assume(in_header_len < in_buf_len);
+  assume(in_iv_len < in_buf_len);
+  assume(ssl->in_msglen < in_buf_len);
+  assume(in_header_start + in_header_len + in_iv_len + ssl->in_msglen ==
+         in_buf_len);
 }
 
 bool outgoing_buf_valid(struct mbedtls_ssl_context *ssl) {
