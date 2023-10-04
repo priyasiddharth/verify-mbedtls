@@ -242,11 +242,14 @@ add_definitions(
 
 # define limits
 set(MAX_BUFFER_SIZE 10)
+set(REC_DATA_LEN 1)
 
-configure_file(include/seahorn_config.h.in ${PROJECT_BINARY_DIR}/seahorn/include/seahorn_config.h)
 configure_file(sea.yaml sea.yaml @ONLY)
 configure_file(sea_cex_base.yaml sea.cex.yaml @ONLY)
 configure_file(sea_vac.yaml sea.vac.yaml @ONLY)
 
 add_subdirectory(library)
 add_subdirectory(jobs/library)
+
+# should be last so that all definitions have been inited before this is called
+configure_file(include/seahorn_config.h.in ${PROJECT_BINARY_DIR}/seahorn/include/seahorn_config.h)

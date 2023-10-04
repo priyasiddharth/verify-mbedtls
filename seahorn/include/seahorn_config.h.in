@@ -7,4 +7,9 @@
 #define MAX_BUFFER_SIZE @MAX_BUFFER_SIZE@
 #endif
 
+#ifndef REC_DATA_LEN
+#define REC_DATA_LEN @REC_DATA_LEN@
+#endif
+
+
 #endif // SEAHORN_CONFIG_H_
