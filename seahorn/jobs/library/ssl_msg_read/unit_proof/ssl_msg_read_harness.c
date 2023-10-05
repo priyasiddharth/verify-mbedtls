@@ -10,7 +10,6 @@
 #include <stddef.h>
 
 extern int ssl_get_timer(void *);
-extern int get_last_read_record_retval(void);
 
 DEFINE_UNIT_PROOF(mbedtls_ssl_read) {
   // NOTE: setup the precondition

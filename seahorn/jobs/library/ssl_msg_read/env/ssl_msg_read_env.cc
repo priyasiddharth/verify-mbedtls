@@ -13,16 +13,13 @@ constexpr auto invoke_zero_and_free = [](void *buf, size_t len) {
   sassert(sea_is_dereferenceable(buf, len));
 };
 
-static int last_read_record_retval = -1;
 constexpr auto invoke_ssl_read_record = [](mbedtls_ssl_context *ssl,
                                            unsigned update_hs_digest) {
   int ret_val = nd_int();
-  last_read_record_retval = ret_val;
   return 0;
 };
 
 extern "C" {
-int get_last_read_record_retval(void) { return last_read_record_retval; }
 ERR_SUC_MOCK_FUNCTION(mbedtls_md_hmac_reset, (mbedtls_md_context_t *))
 ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_flush_output, (mbedtls_ssl_context *))
 ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_flight_transmit, (mbedtls_ssl_context *))
