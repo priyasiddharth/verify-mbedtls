@@ -11,5 +11,10 @@
 #define REC_DATA_LEN @REC_DATA_LEN@
 #endif
 
+#ifndef MAX_PAD_LEN
+#define MAX_PAD_LEN @MAX_PAD_LEN@
+#endif
+
+
 
 #endif // SEAHORN_CONFIG_H_

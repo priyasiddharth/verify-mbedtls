@@ -243,6 +243,7 @@ add_definitions(
 # define limits
 set(MAX_BUFFER_SIZE 10)
 set(REC_DATA_LEN 1)
+set(MAX_PAD_LEN 8)
 
 configure_file(sea.yaml sea.yaml @ONLY)
 configure_file(sea_cex_base.yaml sea.cex.yaml @ONLY)
