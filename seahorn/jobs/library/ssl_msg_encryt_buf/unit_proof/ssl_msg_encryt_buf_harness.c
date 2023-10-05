@@ -23,9 +23,15 @@ DEFINE_UNIT_PROOF(mbedtls_ssl_encrypt_buf) {
   memhavoc(&rec, sizeof(mbedtls_record));
   assume(rec.data_len == REC_DATA_LEN);
   rec.buf = (unsigned char *)malloc(GLOBAL_BUF_MAX_SIZE);
+  rec.buf_len = GLOBAL_BUF_MAX_SIZE;
   rec.data_offset = 0;
   assume((transform.ivlen - (rec.data_len + 1) % transform.ivlen) <=
          MAX_PAD_LEN);
+  assume(transform.maclen <= GLOBAL_BUF_MAX_SIZE);
+  assume(rec.data_len + transform.maclen <= GLOBAL_BUF_MAX_SIZE);
+  sea_printf("transform.ivlen:%d", transform.ivlen);
+  sea_printf("padlen:%d",
+             transform.ivlen - (rec.data_len + 1) % transform.ivlen);
   // setup incoming & outgoing data
   init_incoming_buf(&ssl);
   init_outgoing_buf(&ssl);
