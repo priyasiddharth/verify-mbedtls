@@ -31,9 +31,11 @@ constexpr auto invoke_fn_mbedtls_ssl_recv_timeout_t =
 extern "C" {
 void set_min_recv_bytes(size_t num_bytes) { nb_bytes = num_bytes; }
 constexpr auto expectations_mbedtls_ssl_recv_t =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_recv_t));
+    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_recv_t) ^ AND ^
+                    Expect(Times, Lt(1_c)));
 constexpr auto expectations_mbedtls_ssl_recv_timeout_t =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_recv_timeout_t));
+    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_recv_timeout_t) ^
+                    AND ^ Expect(Times, Lt(2_c)));
 
 MOCK_FUNCTION(ssl_recv_fn, expectations_mbedtls_ssl_recv_t, int,
               (void * /* ctx */, unsigned char * /* buf */, size_t /* len */))
@@ -53,4 +55,5 @@ LAZY_MOCK_FUNCTION(mbedtls_ssl_set_timer, void,
 // LAZY_MOCK_FUNCTION(ssl_recv_fn_timeout, int,
 //                    (void *, unsigned char *, size_t, uint32_t))
 LAZY_MOCK_FUNCTION(mbedtls_ssl_flight_transmit, int, (mbedtls_ssl_context *))
+SETUP_POST_CHECKS((ssl_recv_fn, ssl_recv_fn_timeout))
 }

@@ -8,6 +8,7 @@ add_library(ssl_msg_fetch_input_harness STATIC
 target_include_directories(ssl_msg_fetch_input_harness
   PRIVATE ${MBEDTLS_DIR}/include/
   ${MBEDTLS_DIR}/library/
+  ${SEAMOCK_ROOT}/include/
   ${PROJECT_SOURCE_DIR}/seahorn/include/)
 sea_overlink_libraries(ssl_msg_fetch_input_harness ssl_msg_fetch_input_env.ir)
 sea_attach_bc(ssl_msg_fetch_input_harness)
