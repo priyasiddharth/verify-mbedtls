@@ -32,7 +32,7 @@ extern "C" {
 void set_min_recv_bytes(size_t num_bytes) { nb_bytes = num_bytes; }
 constexpr auto expectations_mbedtls_ssl_recv_t =
     MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_recv_t) ^ AND ^
-                    Expect(Times, Lt(1_c)));
+                    Expect(Times, Lt(2_c)));
 constexpr auto expectations_mbedtls_ssl_recv_timeout_t =
     MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_recv_timeout_t) ^
                     AND ^ Expect(Times, Lt(2_c)));
