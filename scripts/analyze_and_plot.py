@@ -10,6 +10,17 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 def calculate_and_output_averages(data):
     total_env_lines =   sum(item['total_LOC'] for item in data)
     total_unit_proof_lines = sum(item['unit_proof_LOC'] for item in data)
