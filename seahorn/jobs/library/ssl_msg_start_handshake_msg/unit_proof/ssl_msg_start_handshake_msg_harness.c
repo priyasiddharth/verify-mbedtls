@@ -9,7 +9,7 @@
 #include <seamock_unit_proof.h>
 #include <stddef.h>
 
-DEFINE_UNIT_PROOF(ssl_msg_start_handshake_msg) {
+DEFINE_UNIT_PROOF(mbedtls_ssl_start_handshake_msg) {
   // NOTE: setup the precondition
   HAVOC_SSL_CTX(ssl);
   HAVOC_ADD_CONF_TO_SSL_CTX(ssl);
@@ -28,13 +28,13 @@ DEFINE_UNIT_PROOF(ssl_msg_start_handshake_msg) {
   unsigned char *buf;
   size_t buf_len;
   // NOTE: call the SUT
-  int rc = ssl_msg_start_handshake_msg(&ssl, hs_type, &buf, &buf_len);
+  int rc = mbedtls_ssl_start_handshake_msg(&ssl, hs_type, &buf, &buf_len);
   // NOTE: Postcondition check
   sassert(buf == ssl.out_msg + 4);
   sassert(buf_len == MBEDTLS_SSL_OUT_CONTENT_LEN - 4);
 }
 
 int main(void) {
-  CALL_UNIT_PROOF(ssl_msg_start_handshake_msg);
+  CALL_UNIT_PROOF(mbedtls_ssl_start_handshake_msg);
   return 0;
 }
