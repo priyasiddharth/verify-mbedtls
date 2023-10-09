@@ -36,7 +36,9 @@ constexpr auto invoke_mbedtls_cipher_crypt =
 
 // Mocking for mbedtls_platform_zeroize
 constexpr auto invoke_mbedtls_platform_zeroize = [](void *buf, size_t len) {
-  return; // Simply return as this function is void.
+  if (buf != NULL) {
+    sassert(sea_is_dereferenceable(buf, len));
+  }
 };
 
 extern "C" {
