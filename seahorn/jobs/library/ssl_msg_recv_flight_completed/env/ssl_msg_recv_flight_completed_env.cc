@@ -20,27 +20,13 @@ constexpr auto invoke_mbedtls_ssl_flight_free_fn =
 
 extern "C" {
 
-// to exit do-while loop after 1 iter
-// SUC_MOCK_FUNCTION(ssl_consume_current_message, (mbedtls_ssl_context *))
-// SUC_MOCK_FUNCTION(ssl_get_next_record, (mbedtls_ssl_context *))
-// SUC_MOCK_FUNCTION(ssl_buffer_message, (mbedtls_ssl_context *))
-// SUC_MOCK_FUNCTION(mbedtls_ssl_handle_message_type, (mbedtls_ssl_context *))
-// ERR_SUC_MOCK_FUNCTION(
-//     mbedtls_ssl_update_handshake_status,
-//     ERR_SUC_MOCK_FUNCTION(ssl_load_buffered_message,
-//                           (mbedtls_ssl_context *))(mbedtls_ssl_context *))
-// ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_check_timer, (mbedtls_ssl_context *))
-// ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_fetch_input, (mbedtls_ssl_context *,
-// size_t)) ERR_SUC_MOCK_FUNCTION(ssl_handle_possible_reconnect,
-// (mbedtls_ssl_context *)) ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_flush_output,
-// (mbedtls_ssl_context *))
 constexpr auto expectations_mbedtls_ssl_msg_buffering_free =
     MakeExpectation(Expect(InvokeFn, invoke_mbedtls_ssl_msg_buffering_free_fn) ^
-                    AND ^ Expect(Times, Eq(1_c)));
+                    AND ^ Expect(Times, seamock::Eq<1>()));
 
 constexpr auto expectations_mbedtls_ssl_flight_free =
     MakeExpectation(Expect(InvokeFn, invoke_mbedtls_ssl_flight_free_fn) ^ AND ^
-                    Expect(Times, Eq(1_c)));
+                    Expect(Times, seamock::Eq<1>()));
 
 MOCK_FUNCTION(mbedtls_ssl_msg_buffering_free,
               expectations_mbedtls_ssl_msg_buffering_free, void,

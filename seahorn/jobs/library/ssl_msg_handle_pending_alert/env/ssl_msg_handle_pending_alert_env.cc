@@ -18,7 +18,7 @@ extern "C" {
 // if (ssl->send_alert != 0) then send_alert is called only once.
 constexpr auto expectations_send_alert_message =
     MakeExpectation(Expect(InvokeFn, invoke_send_alert_message) ^ AND ^
-                    Expect(Times, Lt(2_c)) // send alert message atmost once
+                    Expect(Times, seamock::Lt<2>()) // send alert message atmost once
     );
 
 MOCK_FUNCTION(mbedtls_ssl_send_alert_message, expectations_send_alert_message,

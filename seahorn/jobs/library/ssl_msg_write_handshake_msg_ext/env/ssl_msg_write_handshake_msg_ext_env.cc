@@ -28,7 +28,7 @@ extern "C" {
 
 constexpr auto expectations_mbedtls_ssl_write_record =
     MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_write_record) ^ AND ^
-                    Expect(Times, Lt(2_c)));
+                    Expect(Times, seamock::Lt<2>()));
 
 MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_mbedtls_ssl_write_record,
               int, (mbedtls_ssl_context *, int))

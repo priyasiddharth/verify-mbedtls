@@ -26,7 +26,7 @@ constexpr auto capture_map_mbedtls_ssl_write_record = hana::make_map(
 
 extern "C" {
 constexpr auto expectations_mbed_write_record =
-    MakeExpectation(Expect(Times, Lt(2_c)) ^ AND ^
+    MakeExpectation(Expect(Times, seamock::Lt<2>()) ^ AND ^
                     Expect(ReturnFn, ret_fn_mbedtls_ssl_write_record) ^ AND ^
                     Expect(Capture, capture_map_mbedtls_ssl_write_record));
 
