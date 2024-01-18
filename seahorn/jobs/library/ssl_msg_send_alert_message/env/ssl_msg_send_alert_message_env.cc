@@ -30,8 +30,10 @@ void set_alert_msg_params(unsigned char lvl, unsigned char msg) {
 }
 
 constexpr auto expectations_mbedtls_ssl_write_record =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_write_record));
-
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_fn_mbedtls_ssl_write_record)
+        .times(seamock::Eq<1>())
+        .build();
 MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_mbedtls_ssl_write_record,
               int, (mbedtls_ssl_context *, int))
 

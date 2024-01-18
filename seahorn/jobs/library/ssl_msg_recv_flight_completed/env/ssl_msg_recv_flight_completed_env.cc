@@ -21,12 +21,15 @@ constexpr auto invoke_mbedtls_ssl_flight_free_fn =
 extern "C" {
 
 constexpr auto expectations_mbedtls_ssl_msg_buffering_free =
-    MakeExpectation(Expect(InvokeFn, invoke_mbedtls_ssl_msg_buffering_free_fn) ^
-                    AND ^ Expect(Times, seamock::Eq<1>()));
-
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_mbedtls_ssl_msg_buffering_free_fn)
+        .times(seamock::Eq<1>())
+        .build();
 constexpr auto expectations_mbedtls_ssl_flight_free =
-    MakeExpectation(Expect(InvokeFn, invoke_mbedtls_ssl_flight_free_fn) ^ AND ^
-                    Expect(Times, seamock::Eq<1>()));
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_mbedtls_ssl_flight_free_fn)
+        .times(seamock::Eq<1>())
+        .build();
 
 MOCK_FUNCTION(mbedtls_ssl_msg_buffering_free,
               expectations_mbedtls_ssl_msg_buffering_free, void,

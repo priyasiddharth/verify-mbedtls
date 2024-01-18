@@ -34,11 +34,11 @@ ERR_SUC_MOCK_FUNCTION(mbedtls_ssl_write_record,
                       (const mbedtls_ssl_context *, int))
 
 constexpr auto expectations_zero_and_free =
-    MakeExpectation(Expect(InvokeFn, invoke_zero_and_free));
+    seamock::ExpectationBuilder().invokeFn(invoke_zero_and_free).build();
 MOCK_FUNCTION(mbedtls_zeroize_and_free, expectations_zero_and_free, void,
               (void *, size_t))
 constexpr auto expectatations_mbedtls_ssl_read_record =
-    MakeExpectation(Expect(InvokeFn, invoke_ssl_read_record));
+    seamock::ExpectationBuilder().invokeFn(invoke_ssl_read_record).build();
 MOCK_FUNCTION(mbedtls_ssl_read_record, expectatations_mbedtls_ssl_read_record,
               int, (mbedtls_ssl_context *, unsigned));
 }

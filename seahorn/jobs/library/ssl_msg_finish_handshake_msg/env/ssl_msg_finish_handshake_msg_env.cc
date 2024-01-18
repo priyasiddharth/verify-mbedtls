@@ -17,9 +17,10 @@ constexpr auto invoke_fn_mbedtls_ssl_write_handshake_msg_ext =
 extern "C" {
 void set_msg_len(size_t len) { msg_len = len; }
 constexpr auto expectations_mbedtls_ssl_write_handshake_msg_ext =
-    MakeExpectation(
-        Expect(InvokeFn, invoke_fn_mbedtls_ssl_write_handshake_msg_ext) ^ AND ^
-        Expect(Times, seamock::Lt<2>()));
+    seamock::ExpectationBuilder()
+        .times(seamock::Lt<2>())
+        .invokeFn(invoke_fn_mbedtls_ssl_write_handshake_msg_ext)
+        .build();
 
 MOCK_FUNCTION(mbedtls_ssl_write_handshake_msg_ext,
               expectations_mbedtls_ssl_write_handshake_msg_ext, int,

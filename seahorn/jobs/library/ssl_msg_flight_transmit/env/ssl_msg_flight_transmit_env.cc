@@ -33,7 +33,9 @@ int mbedtls_ssl_get_record_expansion(const mbedtls_ssl_context *ssl) {
   return r;
 }
 constexpr auto expectations_mbedtls_ssl_write_record =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_write_record));
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_fn_mbedtls_ssl_write_record)
+        .build();
 
 MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_mbedtls_ssl_write_record,
               int, (mbedtls_ssl_context *, int))

@@ -39,22 +39,25 @@ constexpr auto invoke_mbedtls_platform_zeroize = [](void *buf, size_t len) {};
 
 extern "C" {
 constexpr auto expect_mbedtls_cipher_auth_encrypt_ext =
-    MakeExpectation(Expect(InvokeFn, invoke_mbedtls_cipher_auth_encrypt_ext));
-
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_mbedtls_cipher_auth_encrypt_ext)
+        .build();
 MOCK_FUNCTION(mbedtls_cipher_auth_encrypt_ext,
               expect_mbedtls_cipher_auth_encrypt_ext, int,
               (mbedtls_cipher_context_t *, const unsigned char *, size_t,
                const unsigned char *, size_t, const unsigned char *, size_t,
                unsigned char *, size_t, size_t *, size_t))
-constexpr auto expect_mbedtls_cipher_crypt =
-    MakeExpectation(Expect(InvokeFn, invoke_mbedtls_cipher_crypt));
 
+constexpr auto expect_mbedtls_cipher_crypt =
+    seamock::ExpectationBuilder().invokeFn(invoke_mbedtls_cipher_crypt).build();
 MOCK_FUNCTION(mbedtls_cipher_crypt, expect_mbedtls_cipher_crypt, int,
               (mbedtls_cipher_context_t *, const unsigned char *, size_t,
                const unsigned char *, size_t, unsigned char *, size_t *))
-constexpr auto expect_mbedtls_platform_zeroize =
-    MakeExpectation(Expect(InvokeFn, invoke_mbedtls_platform_zeroize));
 
+constexpr auto expect_mbedtls_platform_zeroize =
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_mbedtls_platform_zeroize)
+        .build();
 MOCK_FUNCTION(mbedtls_platform_zeroize, expect_mbedtls_platform_zeroize, void,
               (void *, size_t))
 }

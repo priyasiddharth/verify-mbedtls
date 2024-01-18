@@ -12,7 +12,7 @@ constexpr auto invoke_zeroize_and_free_fn = [](void *buf, size_t len) {
 };
 
 constexpr auto expectations_zeroize_and_free =
-    MakeExpectation(Expect(InvokeFn, invoke_zeroize_and_free_fn));
+    seamock::ExpectationBuilder().invokeFn(invoke_zeroize_and_free_fn).build();
 
 extern "C" {
 MOCK_FUNCTION(mbedtls_zeroize_and_free, expectations_zeroize_and_free, void,

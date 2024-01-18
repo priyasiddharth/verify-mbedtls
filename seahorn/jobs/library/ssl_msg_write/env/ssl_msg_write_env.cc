@@ -26,12 +26,12 @@ constexpr auto invoke_mbedtls_ssl_write_record =
 extern "C" {
 
 constexpr auto expectations_flush_output =
-    MakeExpectation(Expect(InvokeFn, invoke_ssl_flush_output));
+    seamock::ExpectationBuilder().invokeFn(invoke_ssl_flush_output).build();
 MOCK_FUNCTION(mbedtls_ssl_flush_output, expectations_flush_output, int,
               (mbedtls_ssl_context *));
 
 constexpr auto expectations_write_record =
-    MakeExpectation(Expect(InvokeFn, invoke_ssl_write_record));
+    seamock::ExpectationBuilder().invokeFn(invoke_ssl_write_record).build();
 MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_write_record, int,
               (mbedtls_ssl_context *, int));
 }

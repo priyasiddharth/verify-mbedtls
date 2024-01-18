@@ -14,7 +14,9 @@ constexpr auto invoke_fn_mbedtls_ssl_send_t =
     };
 
 constexpr auto expectations_mbedtls_ssl_send_t =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_send_t));
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_fn_mbedtls_ssl_send_t)
+        .build();
 MOCK_FUNCTION(send_fn, expectations_mbedtls_ssl_send_t, int,
               (void * /* ctx */, const unsigned char * /* buf */,
                size_t /* len */))

@@ -15,7 +15,7 @@ constexpr auto invoke_ct_memcmp = [](const void *a, const void *b, size_t n) {
 extern "C" {
 
 constexpr auto expect_ct_memcmp =
-    MakeExpectation(Expect(InvokeFn, invoke_ct_memcmp));
+    seamock::ExpectationBuilder().invokeFn(invoke_ct_memcmp).build();
 
 MOCK_FUNCTION(mbedtls_ct_memcmp, expect_ct_memcmp, int,
               (const void *, const void *, size_t))

@@ -10,8 +10,6 @@ extern "C" {
 extern int nd_int(void);
 }
 
-constexpr auto ret_fn_mbedtls_ssl_write_record = []() { return nd_int(); };
-
 // Check ssl msg is correct
 constexpr auto check_arg_mbedtls_ssl_write_record =
     [](mbedtls_ssl_context *ssl) {
@@ -21,14 +19,13 @@ constexpr auto check_arg_mbedtls_ssl_write_record =
       sassert(ssl->out_msg[1] == MBEDTLS_SSL_ALERT_MSG_CLOSE_NOTIFY);
     };
 
-constexpr auto capture_map_mbedtls_ssl_write_record = hana::make_map(
-    hana::make_pair(hana::size_c<0>, check_arg_mbedtls_ssl_write_record));
-
 extern "C" {
 constexpr auto expectations_mbed_write_record =
-    MakeExpectation(Expect(Times, seamock::Lt<2>()) ^ AND ^
-                    Expect(ReturnFn, ret_fn_mbedtls_ssl_write_record) ^ AND ^
-                    Expect(Capture, capture_map_mbedtls_ssl_write_record));
+    seamock::ExpectationBuilder()
+        .times(seamock::Lt<2>())
+        .returnFn(nd_int)
+        .captureArgAndInvoke<0>(check_arg_mbedtls_ssl_write_record)
+        .build();
 
 MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_mbed_write_record, int,
               (mbedtls_ssl_context *, int))

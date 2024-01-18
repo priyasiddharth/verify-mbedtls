@@ -23,10 +23,12 @@ constexpr auto invoke_parse_record_header_fn =
     };
 
 constexpr auto expectations_zeroize_and_free =
-    MakeExpectation(Expect(InvokeFn, invoke_zeroize_and_free_fn));
+    seamock::ExpectationBuilder().invokeFn(invoke_zeroize_and_free_fn).build();
 
 constexpr auto expectations_parse_record_header =
-    MakeExpectation(Expect(InvokeFn, invoke_parse_record_header_fn));
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_parse_record_header_fn)
+        .build();
 
 LAZY_MOCK_FUNCTION(mbedtls_ssl_decrypt_buf, int,
                    (mbedtls_ssl_context const *, mbedtls_ssl_transform *,

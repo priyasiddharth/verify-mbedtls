@@ -13,7 +13,7 @@ constexpr auto invoke_ssl_read_record = [](mbedtls_ssl_context *ssl,
 
 extern "C" {
 constexpr auto expectations_ssl_read_record =
-    MakeExpectation(Expect(InvokeFn, invoke_ssl_read_record));
+    seamock::ExpectationBuilder().invokeFn(invoke_ssl_read_record).build();
 
 MOCK_FUNCTION(mbedtls_ssl_read_record, expectations_ssl_read_record, int,
               (mbedtls_ssl_context *, unsigned));

@@ -38,8 +38,10 @@ constexpr auto expectations_mbedtls_ssl_recv_t =
         .build();
 
 constexpr auto expectations_mbedtls_ssl_recv_timeout_t =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_recv_timeout_t) ^
-                    AND ^ Expect(Times, seamock::Lt<2>()));
+    seamock::ExpectationBuilder()
+        .times(seamock::Lt<2>())
+        .invokeFn(invoke_fn_mbedtls_ssl_recv_timeout_t)
+        .build();
 
 MOCK_FUNCTION(ssl_recv_fn, expectations_mbedtls_ssl_recv_t, int,
               (void * /* ctx */, unsigned char * /* buf */, size_t /* len */))

@@ -27,14 +27,15 @@ constexpr auto invoke_calloc = [](size_t number, size_t size) {
 extern "C" {
 
 constexpr auto expectations_mbedtls_ssl_write_record =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_ssl_write_record) ^ AND ^
-                    Expect(Times, seamock::Lt<2>()));
-
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_fn_mbedtls_ssl_write_record)
+        .times(seamock::Lt<2>())
+        .build();
 MOCK_FUNCTION(mbedtls_ssl_write_record, expectations_mbedtls_ssl_write_record,
               int, (mbedtls_ssl_context *, int))
 
 constexpr auto expectations_calloc =
-    MakeExpectation(Expect(InvokeFn, invoke_calloc));
+    seamock::ExpectationBuilder().invokeFn(invoke_calloc).build();
 MOCK_FUNCTION(calloc, expectations_calloc, void *, (size_t, size_t))
 
 LAZY_MOCK_FUNCTION(update_checksum, int,

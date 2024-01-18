@@ -13,7 +13,6 @@ constexpr auto invoke_fn_mbedtls_free = [](void *ptr) {
 
 extern "C" {
 constexpr auto expectations_mbedtls_free =
-    MakeExpectation(Expect(InvokeFn, invoke_fn_mbedtls_free));
-
+    seamock::ExpectationBuilder().invokeFn(invoke_fn_mbedtls_free).build();
 MOCK_FUNCTION(free, expectations_mbedtls_free, void, (void *))
 }

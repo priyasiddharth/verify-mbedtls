@@ -14,9 +14,10 @@ constexpr auto invoke_mbedtls_platform_zeroize = [](void *buf, size_t len) {
 
 extern "C" {
 auto expect_mbedtls_platform_zeroize =
-    MakeExpectation(Expect(InvokeFn, invoke_mbedtls_platform_zeroize) ^ AND ^
-                    Expect(Times, seamock::Lt<2>()));
-
+    seamock::ExpectationBuilder()
+        .invokeFn(invoke_mbedtls_platform_zeroize)
+        .times(seamock::Lt<2>())
+        .build();
 MOCK_FUNCTION(mbedtls_platform_zeroize, expect_mbedtls_platform_zeroize, void,
               (void *, size_t))
 }
