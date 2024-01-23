@@ -7,3 +7,5 @@ build-rel
 .idea
 README.md
 compile-commands.json
+*.pdf
+*.md

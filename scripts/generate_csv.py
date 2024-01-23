@@ -19,8 +19,18 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+def change_to_build_dir():
+    if os.path.exists('build-rel'):
+        os.chdir('build-rel')
+        return "Changed to directory 'build-rel'"
+    elif os.path.exists('build'):
+        os.chdir('build')
+        return "Changed to directory 'build'"
+    else:
+        return "Error: Neither 'build-rel' nor 'build' exists"
+
 def run_ctest():
-    os.chdir("build-rel")
+    change_to_build_dir();
     timing_info = defaultdict(list)
     print(f"{bcolors.OKCYAN}Info: Running {NUM_RUNS} times.{bcolors.ENDC}")
     for _ in range(NUM_RUNS):
