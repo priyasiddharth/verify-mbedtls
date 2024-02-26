@@ -47,5 +47,5 @@ set(SEA_LIB ${CMAKE_CURRENT_SOURCE_DIR}/seahorn/lib)
 configure_file(verify.py.in verify @ONLY)
 set(VERIFY_CMD ${CMAKE_CURRENT_BINARY_DIR}/verify)
 include_directories(BEFORE ${CMAKE_CURRENT_BINARY_DIR}/seahorn/include/
-                           ${SEAHORN_ROOT}/include)
+                           ${SEAHORN_ROOT}/include)             
 add_subdirectory(seahorn)

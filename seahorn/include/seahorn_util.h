@@ -24,12 +24,15 @@ extern "C" {
 */
 extern ND void memhavoc(void *ptr, size_t size);
 extern ND void sea_printf(const char *format, ...);
-
-extern int nd_int(void);
+#ifndef TRACK_CUSTOM0_MEM
+#define TRACK_CUSTOM0_MEM 3
+#endif
+// extern int nd_int(void);
 extern size_t nd_size_t(void);
 extern uint8_t nd_uint8_t(void);
 extern bool nd_bool(void);
 extern char nd_char(void);
+extern int nd_int(void);
 extern unsigned nd_uint32_t(void);
 extern unsigned char nd_uchar(void);
 extern void sea_reset_modified(char *);

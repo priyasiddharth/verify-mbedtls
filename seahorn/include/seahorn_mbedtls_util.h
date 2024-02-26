@@ -3,6 +3,8 @@
 
 #include "mbedtls/ssl.h"
 
+#define MBEDTLS_SSL_VARIABLE_BUFFER_LENGTH
+
 #define HAVOC_SSL_CTX(ssl)                                                     \
   struct mbedtls_ssl_context ssl;                                              \
   memhavoc(&ssl, sizeof(mbedtls_ssl_context));
@@ -20,6 +22,9 @@
 #define ADD_CONF_TO_SSL_CTX(ssl)                                               \
   struct mbedtls_ssl_config conf;                                              \
   memhavoc(&conf, sizeof(mbedtls_ssl_config));                                 \
+  conf.transport = NULL; \
+  conf.f_rng = NULL; \
+  conf.p_rng = NULL; \
   ssl.conf = &conf;
 
 void init_outgoing_buf(struct mbedtls_ssl_context *);

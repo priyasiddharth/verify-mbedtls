@@ -2,6 +2,7 @@
 set(UNROLL_BOUND 8)
 add_library(ssl_msg_write_record_harness STATIC
   ssl_msg_write_record_harness.c)
+target_compile_definitions(ssl_msg_write_record_harness PRIVATE MBEDTLS_SSL_VARIABLE_BUFFER_LENGTH)  
 target_include_directories(ssl_msg_write_record_harness
   PRIVATE ${MBEDTLS_DIR}/include/
   ${MBEDTLS_DIR}/library/
