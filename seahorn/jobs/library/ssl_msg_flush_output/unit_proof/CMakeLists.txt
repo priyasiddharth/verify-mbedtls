@@ -2,12 +2,12 @@
 set(MAX_BUFFER_SIZE 10)
 set(UNROLL_BOUND ${MAX_BUFFER_SIZE})
 add_library(ssl_msg_flush_output_harness STATIC
-  ${MBEDTLS_DIR}/library/ssl_msg.c
   ssl_msg_flush_output_harness.c)
 target_include_directories(ssl_msg_flush_output_harness
   PRIVATE ${MBEDTLS_DIR}/include/
   ${MBEDTLS_DIR}/library/
   ${PROJECT_SOURCE_DIR}/seahorn/include/)
+sea_link_libraries(ssl_msg_flush_output_harness ssl_msg.opt.ir)
 sea_overlink_libraries(ssl_msg_flush_output_harness ssl_msg_flush_output_env.ir)
 sea_attach_bc(ssl_msg_flush_output_harness)
 configure_file(sea.yaml sea.yaml @ONLY)

@@ -10,7 +10,7 @@ PRIVATE ${MBEDTLS_DIR}/include/
 ${MBEDTLS_DIR}/library/
 ${PROJECT_SOURCE_DIR}/seahorn/include/
 ${SEAMOCK_ROOT}/include)
-sea_link_libraries(ssl_msg_write_record_ownsem_harness ssl_mod_msg.opt.ir)
+sea_link_libraries(ssl_msg_write_record_ownsem_harness ssl_mod_ownsem_msg.opt.ir)
 sea_link_libraries(ssl_msg_write_record_ownsem_harness seahorn_mbedtls_util_ownsem_lib.ir)
 sea_overlink_libraries(ssl_msg_write_record_ownsem_harness ssl_msg_write_record_ownsem_env_c.ir)
 sea_overlink_libraries(ssl_msg_write_record_ownsem_harness ssl_msg_write_record_ownsem_env.ir)

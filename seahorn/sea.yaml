@@ -44,6 +44,6 @@ verify_options:
 # time and result stats
   horn-stats: true
 # Use smtfd tactic
-  horn-bmc-tactic: 'smtfd'
+  horn-bmc-tactic: 'smt'
 # set tracking memory (shadow mem) on
   horn-bv2-tracking-mem: true

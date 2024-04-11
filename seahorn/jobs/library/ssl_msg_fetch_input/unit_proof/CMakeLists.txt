@@ -3,13 +3,13 @@ set(MAX_BUFFER_SIZE 9)
 set(UNROLL_BOUND ${MAX_BUFFER_SIZE})
 
 add_library(ssl_msg_fetch_input_harness STATIC
-  ${MBEDTLS_DIR}/library/ssl_msg.c
   ssl_msg_fetch_input_harness.c)
 target_include_directories(ssl_msg_fetch_input_harness
   PRIVATE ${MBEDTLS_DIR}/include/
   ${MBEDTLS_DIR}/library/
   ${SEAMOCK_ROOT}/include/
   ${PROJECT_SOURCE_DIR}/seahorn/include/)
+sea_link_libraries(ssl_msg_fetch_input_harness ssl_msg.opt.ir)
 sea_overlink_libraries(ssl_msg_fetch_input_harness ssl_msg_fetch_input_env.ir)
 sea_attach_bc(ssl_msg_fetch_input_harness)
 configure_file(sea.yaml sea.yaml @ONLY)

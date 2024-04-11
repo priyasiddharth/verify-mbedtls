@@ -9,6 +9,23 @@
 
 #include <seahorn_mbedtls_util.h>
 
+
+#define NUM_OUT_BUFS NUM_OUT_RECORDS
+
+unsigned char* choose_outgoing_bufs(size_t out_buf_len) {
+  static bool initialized = false;
+  static unsigned char *bufs[NUM_OUT_BUFS];
+  if (!initialized) {
+    for(size_t i=0; i < NUM_OUT_BUFS; i++) {  
+      bufs[i] = (unsigned char *)malloc(out_buf_len);
+    }
+    initialized = true;
+  }
+  size_t idx = nd_size_t();
+  assume(idx < NUM_OUT_BUFS);
+  return bufs[idx];
+}
+
 void init_outgoing_buf(struct mbedtls_ssl_context *ssl) {
   // setup outgoing data
   ND_ALIGNED64_SIZE_T(out_buf_len);
@@ -16,12 +33,13 @@ void init_outgoing_buf(struct mbedtls_ssl_context *ssl) {
   unsigned char *out_buf = (unsigned char *)malloc(out_buf_len);
   sea_printf("out_buf addr:%x\n", out_buf);
 #if USE_OWNSEM == 1 
-  SEA_MKOWN(out_buf);
-  SEA_WRITE_CACHE(out_buf, 0);
+  //SEA_MKOWN(out_buf);
+  //SEA_WRITE_CACHE(out_buf, 0);
+  //SEA_BORROW(ssl->out_buf, out_buf);
   // SEA_MOVE2MEM(&(ssl->out_buf),out_buf)
-/* 
+
 #else     
-  ssl->out_buf = out_buf; */
+  ssl->out_buf = out_buf;
 #endif  
   ssl->out_buf = out_buf;
   sea_set_shadowmem(TRACK_CUSTOM0_MEM, (char *) (ssl->out_buf), 0);

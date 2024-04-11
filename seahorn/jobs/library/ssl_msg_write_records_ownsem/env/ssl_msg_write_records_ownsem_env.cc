@@ -20,23 +20,26 @@ static inline size_t mbedtls_ssl_ep_len(const mbedtls_ssl_context *ssl)
 }
 
 constexpr auto invoke_fn_mbedtls_ssl_flush_output = [](mbedtls_ssl_context *ssl) {
-  size_t count;
-  SEA_READ_CACHE(count, ssl->out_buf);
-  sea_printf("ssl.out_buf:%x\n", ssl->out_buf);
-  size_t shift = 0;
-  if (count > 0) {
-    size_t counter = 0;
-    for (size_t i = 8; i > mbedtls_ssl_ep_len(ssl); i--) {
-      counter = ((size_t)ssl->cur_out_ctr[i - 1] << shift) | counter;
-      shift+=8;
-    }
-    sea_printf("counter(flush) addr:%x\n", ssl->cur_out_ctr);
-    sea_printf("counter(flush) val:%d\n", counter);
-    sea_set_shadowmem(TRACK_CUSTOM0_MEM, (char *)(ssl->out_buf), counter); 
-    SEA_WRITE_CACHE(ssl->out_buf, counter);
-  }
   int r = nd_int();
-  assume(r == 0);
+  assume(r <= 0);
+  size_t count;
+  SEA_READ_CACHE(count, ssl);
+  //sea_printf("count(flush):%d\n", count);
+  //sea_printf("ssl.out_buf:%x\n", ssl->out_buf);
+   size_t shift = 0;
+  // if (count > 0 && r == 0) {
+  //  size_t counter = 0;
+  //   for (size_t i = 8; i > mbedtls_ssl_ep_len(ssl); i--) {
+  //     counter = ((size_t)ssl->cur_out_ctr[i - 1] << shift) | counter;
+  //     shift+=8;
+  //   }
+  //   //sea_printf("counter(flush) addr:%x\n", ssl->cur_out_ctr);
+  //   sea_printf("counter(flush) val:%d\n", count);
+  //   //sea_set_shadowmem(TRACK_CUSTOM0_MEM, (char *)(ssl->out_buf), counter); 
+  //   SEA_WRITE_CACHE(ssl, counter);
+  // }
+  // SEA_DIE(ssl->out_buf);
+  SEA_DIE(ssl);
   return r;  
 };
 
