@@ -4,4 +4,4 @@ verify_options:
   horn-bv2-own-sem: true
   horn-bv2-tracking-mem: false
   horn-bv2-extra-widemem: false
-  
+  #horn-bmc-tactic: 'smtfd'
