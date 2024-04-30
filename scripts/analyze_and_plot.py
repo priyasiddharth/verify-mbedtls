@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-import os
-import re
-import subprocess
+import argparse
 import csv
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+
+KEY_TO_TESTNAME = 'key_to_testname.csv'
 
 class bcolors:
     HEADER = '\033[95m'
@@ -33,11 +33,19 @@ def calculate_and_output_averages(data):
     print(f"Average lines of unit proof code: {avg_unit_proof_lines:.2f}")
 
 
-def plot_bargraph(data):
+def plot_bargraph(data, use_keys=False):
     # Convert your data into a Pandas DataFrame
     df = pd.DataFrame(data)
-    df['test_name'] = df['test_name'].str.replace('ssl_msg_', '')
 
+     # Generate numeric keys if option is selected
+    if use_keys:
+        key_map = {name: i for i, name in enumerate(df['test_name'], 1)}
+        df['test_name'] = df['test_name'].map(key_map)
+        # Write the key to test name mapping to a CSV
+        print(f'Writing key to testname data in {KEY_TO_TESTNAME}.')
+        pd.DataFrame(list(key_map.items()), columns=['Key', 'Test Name']).to_csv(KEY_TO_TESTNAME, index=False)
+    else:
+        df['test_name'] = df['test_name'].str.replace('ssl_msg_', '')
     # Melt the DataFrame to have test names as individual rows
     df_melted = df.melt(id_vars=['test_name'], value_vars=['average_ctest_running_time', 'total_LOC'], var_name='Metric', value_name='Value')
     # Set Pandas to display all rows of the DataFrame
@@ -55,20 +63,23 @@ def plot_bargraph(data):
 
     plt.figure(figsize=(20,12)) # 16:9
     ax = sns.barplot(x='test_name', y='Value', hue='Metric', data=df_melted, palette='deep')
-    plt.xlabel('Test name', fontsize=24)
+    plt.xlabel('Test key', fontsize=24)
     plt.ylabel('Value', fontsize=24)
     handles, labels = ax.get_legend_handles_labels()
     ax.legend(handles, ['Execution time (s)', 'Lines of Code for unit proof + environment'],  fontsize=24)
     #plt.xticks(rotation=45)
-    plt.xticks(rotation=90, fontsize=22)  # Adjust rotation and fontsize as needed
+    plt.xticks(fontsize=22)  # Adjust rotation and fontsize as needed
     plt.yticks(fontsize=22)
     plt.tight_layout()
     plt.savefig('bar_graph_test_time_and_LOC.pdf')
 
 def main():
+    parser = argparse.ArgumentParser(description='Generate graphs from CSV data.')
+    parser.add_argument('--use-keys', action='store_true', help='Use numeric keys instead of test names for the graph labels')
+    args = parser.parse_args()   
     data = pd.read_csv('test_data.csv').to_dict(orient='records')  # Read CSV and convert it to list of dictionaries
     calculate_and_output_averages(data)
-    plot_bargraph(data)
+    plot_bargraph(data, args.use_keys)
 
 
 if __name__ == "__main__":
