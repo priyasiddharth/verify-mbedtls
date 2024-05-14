@@ -251,6 +251,6 @@ configure_file(sea_vac.yaml sea.vac.yaml @ONLY)
 
 add_subdirectory(library)
 add_subdirectory(jobs/library)
-
+add_subdirectory(jobs/synthetic)
 # should be last so that all definitions have been inited before this is called
 configure_file(include/seahorn_config.h.in ${PROJECT_BINARY_DIR}/seahorn/include/seahorn_config.h)

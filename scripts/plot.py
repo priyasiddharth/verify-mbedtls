@@ -36,6 +36,7 @@ def extract_datalist(data, parameter):
     return (x, y)  # Return tuple
 
 def scatter_plot(x, y, job_name):
+    #df = pd.DataFrame({'ownsem': x, 'baseline': y})
     # Plot scatterplot with a unique marker style for each job
     marker_styles = ['o', '^', 's', 'd', 'x']  # You can extend this list for more job names
     plt.scatter(x, y, label=job_name, marker=marker_styles.pop(0))
@@ -47,7 +48,7 @@ def plot_lines(x, y):
     # Plot y=3x line
     plt.plot(x, [3 * val for val in x], label='y = 3x', color='#98FB98') #green
 
-def doPlot(data, parameter, job_names):
+def doPlot(data, parameter, job_names, out_filename):
   max_x_value = 0
   max_y_value = 0
   # Iterate over job names and plot each file separately
@@ -64,14 +65,17 @@ def doPlot(data, parameter, job_names):
   plt.xlim(0, max_value)
   plt.ylim(0, max_value)
   # Plot y=x and y=3x lines
-  max_value = max(max(x), max(y))
   x_line = np.linspace(0, max_value, 100)
   plot_lines(x_line, x_line)
   # Add grid
   plt.grid(True)
+  # Add labels
+  plt.xlabel('Ownsem(s)')
+  plt.ylabel('Baseline(s)')
 
   # Show legend
   plt.legend()
+  plt.savefig(out_filename, format='pdf')
   plt.show()
 
 def main():
@@ -80,10 +84,12 @@ def main():
     parser.add_argument('--parameter', default='BMC.solve', help='Parameter')
     parser.add_argument('--input', nargs='+', help='List of filenames for the input JSON')
     parser.add_argument('--job_names', nargs='+', help='List of job names')
+    parser.add_argument('--output', default='scatter_plot.pdf', help='filename of scatter plot')
+
     args = parser.parse_args()
 
     data = [load_dict_with_tuple_keys(filename) for filename in args.input]
-    doPlot(data, args.parameter, args.job_names)
+    doPlot(data, args.parameter, args.job_names, args.output)
 
 if __name__ == '__main__':
     main()

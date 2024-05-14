@@ -45,7 +45,6 @@ set(SEAMOCK_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/seamock/src)
 
 set(SEA_LIB ${CMAKE_CURRENT_SOURCE_DIR}/seahorn/lib)
 
-set(USE_SHADOW "0" CACHE STRING "Use shadow memory instead of main memory (for benchmarking). Default is 0.")
 set(NUM_OUT_RECORDS "2" CACHE STRING "Number of outgoing records (for benchmarking). Must be >=2.")
 math(EXPR NUM_OUT_RECORDS_NUM "${NUM_OUT_RECORDS}" OUTPUT_FORMAT DECIMAL)
 if(NOT NUM_OUT_RECORDS_NUM GREATER_EQUAL 2)
